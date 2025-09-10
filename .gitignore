@@ -960,3 +960,4 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,vim,visualstudiocode,visualstudio,rider,webstorm+all,node,yarn,vue,vuejs,nuxtjs,dotnetcore,aspnetcore
 
 # Project-specific
+.claude/settings.local.json
