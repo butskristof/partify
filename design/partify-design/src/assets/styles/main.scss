@@ -1,0 +1,35 @@
+:root {
+  --app-header-height: calc(var(--default-spacing) * 4);
+  --app-container: 80rem; // 1280px
+
+  --default-radius: 0.25rem;
+  --default-spacing: 1rem;
+
+  --color-primary: #9333EA;
+  --color-secondary: #EC4899;
+
+  --color-surface-1: #1F2937;
+  --color-surface-2: #111827;
+
+  --color-background: #374151;
+
+  --sfc-1: #111827;
+  --sfc-2: #1F2937;
+  --sfc-3: #374151;
+  --sfc-4: rgba(#1f2937, 50%);
+
+  --color-text: #fff;
+  --color-text-muted: #9CA3AF;
+}
+
+html, body, #app {
+  font-family: sans-serif;
+  height: 100%;
+  width: 100%;
+
+  color: var(--color-text);
+}
+
+button {
+  border: none;
+}
