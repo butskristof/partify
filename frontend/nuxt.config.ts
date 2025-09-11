@@ -79,4 +79,8 @@ export default defineNuxtConfig({
       },
     },
   },
+  routeRules: {
+    // route to the groups overview by default
+    '/': { redirect: '/sessions' },
+  },
 });

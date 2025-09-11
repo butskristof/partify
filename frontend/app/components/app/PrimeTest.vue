@@ -40,12 +40,12 @@
 .prime-test {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--default-spacing);
 }
 
 .buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: var(--default-spacing);
 }
 </style>
