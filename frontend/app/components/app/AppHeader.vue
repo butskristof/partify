@@ -20,7 +20,8 @@
 
   border-bottom: 1px solid var(--p-surface-400);
   box-shadow: 0 1px 2px 0 rgb(255 255 255 / 0.05);
-  backdrop-filter: blur(8px);
+  background-color: hsl(from var(--p-surface-500) h s l / 0.75);
+  backdrop-filter: blur(10px);
 }
 
 header {

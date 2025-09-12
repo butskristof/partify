@@ -961,3 +961,4 @@ FodyWeavers.xsd
 
 # Project-specific
 .claude/settings.local.json
+**/.claude/settings.local.json
