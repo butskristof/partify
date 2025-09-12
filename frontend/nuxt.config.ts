@@ -57,7 +57,7 @@ const primePreset = definePreset(Lara, {
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/fonts', '@nuxt/icon', '@primevue/nuxt-module'],
+  modules: ['@nuxt/eslint', '@nuxt/fonts', '@nuxt/icon', '@primevue/nuxt-module', 'nuxt-security'],
   css: ['~/assets/styles/reset.css', 'primeicons/primeicons.css', '~/assets/styles/main.scss'],
   components: {
     // disable auto-import of components
@@ -81,6 +81,6 @@ export default defineNuxtConfig({
   },
   routeRules: {
     // route to the groups overview by default
-    '/': { redirect: '/sessions' },
+    '/': { redirect: '/sessions/13FB62D1-B255-4BE8-932D-528D3DFF49DC' },
   },
 });

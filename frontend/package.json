@@ -23,6 +23,7 @@
     "eslint": "^9.35.0",
     "eslint-plugin-vue-scoped-css": "^2.12.0",
     "nuxt": "^4.1.1",
+    "nuxt-security": "^2.4.0",
     "prettier": "^3.6.2",
     "primeicons": "^7.0.0",
     "primevue": "^4.3.9",

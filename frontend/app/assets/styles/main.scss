@@ -25,7 +25,9 @@
 }
 
 html, body {
-  font-family: sans-serif;
+  background-color: var(--p-surface-500);
+  color: var(--color-text);
+  font-family: Inter, sans-serif;
 }
 
 h1 {
