@@ -39,11 +39,11 @@ const data = [
 ];
 const filteredData = computed(() => {
   if (!searchValue.value) return data;
-  
+
   const search = searchValue.value.toLowerCase();
-  return data.filter(item => 
-    item.title.toLowerCase().includes(search) || 
-    item.artist.toLowerCase().includes(search)
+  return data.filter(
+    (item) =>
+      item.title.toLowerCase().includes(search) || item.artist.toLowerCase().includes(search),
   );
 });
 </script>

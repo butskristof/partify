@@ -1,7 +1,13 @@
 <template>
   <div class="now-playing">
     <div class="artwork">
-      <Image :src="`/images/${item.artwork}`" />
+      <div class="image-wrapper">
+        <Image :src="`/images/${item.artwork}`" />
+        <div class="added-by">
+          <span>Added by</span>
+          <SpotifyUser />
+        </div>
+      </div>
     </div>
     <div class="song-info">
       <div class="title">{{ item.title }}</div>
@@ -38,6 +44,8 @@
 </template>
 
 <script setup lang="ts">
+import SpotifyUser from '~/components/common/SpotifyUser.vue';
+
 const item = {
   artwork: 'artwork-04.png',
   title: 'Uptown Funk (feat. Bruno Mars)',
@@ -50,6 +58,30 @@ const item = {
 
 .now-playing {
   @include utilities.flex-column;
+}
+
+.artwork {
+  @include utilities.flex-row;
+  justify-content: center;
+
+  .image-wrapper {
+    position: relative;
+
+    .added-by {
+      @include utilities.flex-row-align-center(false);
+      justify-content: flex-end;
+      gap: calc(var(--default-spacing) / 2);
+      padding-inline: var(--default-spacing);
+      padding-block: calc(var(--default-spacing) / 2);
+
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+
+      background-color: hsl(from var(--p-surface-500) h s l / 0.5);
+      backdrop-filter: blur(10px);
+    }
+  }
 }
 
 .song-info {
