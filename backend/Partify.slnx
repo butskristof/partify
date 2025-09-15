@@ -13,6 +13,7 @@
     </Folder>
     <Folder Name="/src/3. Hosts/">
         <Project Path="src/3-hosts/AppHost/AppHost.csproj" Type="Classic C#" />
+        <Project Path="src/backend/3-hosts/Web/Web.csproj" Type="Classic C#" />
     </Folder>
     <Folder Name="/tests/" />
 </Solution>
