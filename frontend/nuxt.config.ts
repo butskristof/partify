@@ -81,6 +81,18 @@ export default defineNuxtConfig({
   },
   routeRules: {
     // route to the groups overview by default
-    '/': { redirect: '/sessions/13FB62D1-B255-4BE8-932D-528D3DFF49DC' },
+    '/': { redirect: '/spotify-auth-test' },
+  },
+  security: {
+    headers: {
+      contentSecurityPolicy: {
+        'img-src': ['self', 'data:', 'https://i.scdn.co'],
+      },
+    },
+  },
+  runtimeConfig: {
+    public: {
+      spotifyClientId: '',
+    },
   },
 });

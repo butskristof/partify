@@ -1,7 +1,9 @@
 <template>
   <div>
     <NuxtRouteAnnouncer />
-    <AppShell />
+    <ClientOnly>
+      <AppShell />
+    </ClientOnly>
   </div>
 </template>
 
