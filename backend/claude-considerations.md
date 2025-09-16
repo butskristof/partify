@@ -9,6 +9,8 @@ The content below should be added to CLAUDE.md when the API solution is set up. 
 
 "Follow the official Microsoft documentation and ASP.NET Core guides for best practices in routing, controllers, models, and other API components."
 
+use dotnet add nuget command instead of editing csproj/Direcotry.Packages.props
+
 ## Cursor rules file
 
 The rules file below is taken from cursor.directory. It's very detailed and fine-grained, maybe too much so to use as-is in CLAUDE.md . Review and bring in what's actually useful to include

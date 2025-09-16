@@ -11,6 +11,10 @@
         <ProjectReference Include="..\..\..\1-core\ServiceDefaults\ServiceDefaults.csproj" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
+        <PackageReference Include="OpenIddict.AspNetCore" />
+        <PackageReference Include="OpenIddict.Client.WebIntegration" />
+        <PackageReference Include="OpenIddict.EntityFrameworkCore" />
         <PackageReference Include="SpotifyAPI.Web" />
     </ItemGroup>
 </Project>
