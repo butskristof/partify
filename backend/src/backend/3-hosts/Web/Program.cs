@@ -3,7 +3,7 @@ using Partify.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
-builder.Services.AddWeb();
+builder.Services.AddConfiguration().AddWeb();
 
 var app = builder.Build();
 
@@ -22,5 +22,6 @@ app
     .UseStatusCodePages();
 
 app.MapDefaultEndpoints();
+app.MapControllers();
 
 app.Run();

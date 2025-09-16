@@ -5,8 +5,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>Partify.Web</AssemblyName>
         <RootNamespace>Partify.Web</RootNamespace>
+        <UserSecretsId>ed78cd2f-24d9-4382-a587-4efbfdbeb2be</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\1-core\ServiceDefaults\ServiceDefaults.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="SpotifyAPI.Web" />
     </ItemGroup>
 </Project>
