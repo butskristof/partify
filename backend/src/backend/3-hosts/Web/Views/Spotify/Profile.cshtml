@@ -1,3 +1,5 @@
+@using System.Text.Json
+@model Web.Models.SpotifyProfileViewModel
 @{
     ViewData["Title"] = "Profile";
 }
@@ -6,4 +8,6 @@
     <h1 class="display-4">Profile</h1>
     
     <p>This is the profile page.</p>
+    <div>Access token expiration: @Model.AccessTokenExpirationDate</div>
+    <pre>@JsonSerializer.Serialize(Model.Profile, new JsonSerializerOptions { WriteIndented = true})</pre>
 </div>

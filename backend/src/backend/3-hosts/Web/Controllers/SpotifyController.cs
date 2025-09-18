@@ -1,18 +1,63 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OpenIddict.Client.AspNetCore;
+using SpotifyAPI.Web;
+using Web.Models;
 
 namespace Web.Controllers;
 
+[Authorize]
 public class SpotifyController : Controller
 {
     [HttpGet]
-    public IActionResult Profile()
+    public async Task<IActionResult> Profile()
     {
-        return View();
+        var client = await GetSpotifyClient();
+        if (client is null)
+            return Unauthorized();
+
+        var accessTokenExpirationDate = await HttpContext.GetTokenAsync(
+            OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessTokenExpirationDate
+        );
+
+        var profile = await client.UserProfile.Current();
+        var model = new SpotifyProfileViewModel
+        {
+            Profile = profile,
+            AccessTokenExpirationDate = accessTokenExpirationDate,
+        };
+        return View(model);
     }
 
     [HttpGet]
-    public IActionResult Playlists()
+    public async Task<IActionResult> Playlists([FromQuery] int offset = 0)
     {
-        return View();
+        const int limit = 10;
+        var client = await GetSpotifyClient();
+        if (client is null)
+            return Unauthorized();
+
+        var request = new PlaylistCurrentUsersRequest() { Limit = limit, Offset = offset };
+        var playlists = await client.Playlists.CurrentUsers(request);
+        return View(
+            new SpotifyPlaylistsViewModel
+            {
+                HasNext = playlists.Next is not null,
+                HasPrevious = playlists.Previous is not null,
+                Playlists = playlists,
+            }
+        );
+    }
+
+    private async Task<SpotifyClient?> GetSpotifyClient()
+    {
+        var accessToken = await HttpContext.GetTokenAsync(
+            OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken
+        );
+        if (string.IsNullOrWhiteSpace(accessToken))
+            return null;
+
+        return new SpotifyClient(accessToken);
     }
 }

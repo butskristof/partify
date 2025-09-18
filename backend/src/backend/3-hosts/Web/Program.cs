@@ -1,6 +1,41 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<DbContext>(options =>
+{
+    options.UseInMemoryDatabase("db");
+    options.UseOpenIddict();
+});
+
+builder
+    .Services.AddOpenIddict()
+    .AddCore(options =>
+    {
+        options.UseEntityFrameworkCore().UseDbContext<DbContext>();
+    })
+    .AddClient(options =>
+    {
+        options.AllowAuthorizationCodeFlow();
+
+        options.AddDevelopmentEncryptionCertificate().AddDevelopmentSigningCertificate();
+
+        options.UseAspNetCore().EnableRedirectionEndpointPassthrough();
+
+        options.UseSystemNetHttp();
+
+        var spotifySettings = builder.Configuration.GetSection("SpotifySettings");
+        options
+            .UseWebProviders()
+            .AddSpotify(spotifyOptions =>
+            {
+                spotifyOptions
+                    .SetClientId(spotifySettings.GetValue<string>("ClientId")!)
+                    .SetClientSecret(spotifySettings.GetValue<string>("ClientSecret")!)
+                    .SetRedirectUri("auth/callback/spotify");
+            });
+    });
 
 builder
     .Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

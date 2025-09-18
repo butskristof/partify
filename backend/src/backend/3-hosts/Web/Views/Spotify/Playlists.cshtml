@@ -1,3 +1,5 @@
+@using System.Text.Json
+@model Web.Models.SpotifyPlaylistsViewModel
 @{
     ViewData["Title"] = "Playlists";
 }
@@ -6,4 +8,6 @@
     <h1 class="display-4">Playlists</h1>
     
     <p>This is the playlists page.</p>
+    
+    <pre>@JsonSerializer.Serialize(Model.Playlists, new JsonSerializerOptions{WriteIndented = true})</pre>
 </div>
