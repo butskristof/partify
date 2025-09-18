@@ -17,7 +17,7 @@ builder
     })
     .AddClient(options =>
     {
-        options.AllowAuthorizationCodeFlow();
+        options.AllowAuthorizationCodeFlow().AllowRefreshTokenFlow();
 
         options.AddDevelopmentEncryptionCertificate().AddDevelopmentSigningCertificate();
 

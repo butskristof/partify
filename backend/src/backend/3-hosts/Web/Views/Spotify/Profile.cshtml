@@ -9,5 +9,11 @@
     
     <p>This is the profile page.</p>
     <div>Access token expiration: @Model.AccessTokenExpirationDate</div>
+    <dl>
+        <dt>Access token</dt>
+        <dd><pre>@Model.AccessToken</pre></dd>
+        <dt>Refresh token</dt>
+        <dd><pre>@Model.RefreshToken</pre></dd>
+    </dl>
     <pre>@JsonSerializer.Serialize(Model.Profile, new JsonSerializerOptions { WriteIndented = true})</pre>
 </div>

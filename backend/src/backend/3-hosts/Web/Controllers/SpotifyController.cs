@@ -20,12 +20,20 @@ public class SpotifyController : Controller
         var accessTokenExpirationDate = await HttpContext.GetTokenAsync(
             OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessTokenExpirationDate
         );
+        var accessToken = await HttpContext.GetTokenAsync(
+            OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken
+        );
+        var refreshToken = await HttpContext.GetTokenAsync(
+            OpenIddictClientAspNetCoreConstants.Tokens.RefreshToken
+        );
 
         var profile = await client.UserProfile.Current();
         var model = new SpotifyProfileViewModel
         {
             Profile = profile,
             AccessTokenExpirationDate = accessTokenExpirationDate,
+            AccessToken = accessToken,
+            RefreshToken = refreshToken,
         };
         return View(model);
     }
