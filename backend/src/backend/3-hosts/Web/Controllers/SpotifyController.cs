@@ -4,16 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Client.AspNetCore;
 using SpotifyAPI.Web;
 using Web.Models;
+using Web.Services;
 
 namespace Web.Controllers;
 
 [Authorize]
 public class SpotifyController : Controller
 {
+    private readonly ISpotifyClientService _spotifyClientService;
+
+    public SpotifyController(ISpotifyClientService spotifyClientService)
+    {
+        _spotifyClientService = spotifyClientService;
+    }
     [HttpGet]
     public async Task<IActionResult> Profile()
     {
-        var client = await GetSpotifyClient();
+        var client = await _spotifyClientService.GetClientAsync();
         if (client is null)
             return Unauthorized();
 
@@ -42,7 +49,7 @@ public class SpotifyController : Controller
     public async Task<IActionResult> Playlists([FromQuery] int offset = 0)
     {
         const int limit = 10;
-        var client = await GetSpotifyClient();
+        var client = await _spotifyClientService.GetClientAsync();
         if (client is null)
             return Unauthorized();
 
@@ -58,14 +65,4 @@ public class SpotifyController : Controller
         );
     }
 
-    private async Task<SpotifyClient?> GetSpotifyClient()
-    {
-        var accessToken = await HttpContext.GetTokenAsync(
-            OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken
-        );
-        if (string.IsNullOrWhiteSpace(accessToken))
-            return null;
-
-        return new SpotifyClient(accessToken);
-    }
 }

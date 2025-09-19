@@ -55,6 +55,12 @@ builder.Services.AddAuthorization();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add HTTP context accessor for services that need access to the current HTTP context
+builder.Services.AddHttpContextAccessor();
+
+// Add Spotify client service with automatic token refresh
+builder.Services.AddScoped<Web.Services.ISpotifyClientService, Web.Services.SpotifyClientService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
