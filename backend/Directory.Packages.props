@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.4.2" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="9.4.2" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.0-rc.1.25451.107" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.9.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.4.2" />
@@ -15,9 +16,8 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
   </ItemGroup>
-    
-    <!-- transitive pinned packages to fix vulnerabilities -->
+  <!-- transitive pinned packages to fix vulnerabilities -->
   <ItemGroup>
-    <VersionOverride Include="KubernetesClient" Version="17.0.14" />
+    <PackageVersion Include="KubernetesClient" Version="17.0.14" />
   </ItemGroup>
 </Project>
