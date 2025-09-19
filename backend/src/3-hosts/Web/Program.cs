@@ -1,6 +1,11 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using Partify.Persistence;
+using Partify.ServiceDefaults;
+using Partify.ServiceDefaults.Constants;
 
-app.MapGet("/", () => "Hello World!");
+var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
+builder.AddPersistence(Resources.AppDb, [HealthCheckConstants.Tags.Ready]);
+
+var app = builder.Build();
 
 app.Run();

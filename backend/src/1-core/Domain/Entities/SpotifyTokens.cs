@@ -1,8 +1,10 @@
-namespace Partify.Domain.Models;
+using Partify.Domain.ValueTypes;
 
-public sealed class AuthenticationTokens
+namespace Partify.Domain.Entities;
+
+public sealed class SpotifyTokens
 {
-    public required string SpotifyUserId { get; set; }
+    public required SpotifyId UserId { get; set; }
 
     public string? AccessToken { get; set; }
     public DateTimeOffset? AccessTokenExpiresOn { get; set; }

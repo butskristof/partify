@@ -1,4 +1,5 @@
 using Partify.ServiceDefaults.Constants;
+using Projects;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ var postgres = builder
 var appDb = postgres.AddDatabase(Resources.AppDb);
 
 var databaseMigrations = builder
-    .AddProject<Projects.DatabaseMigrations>(Resources.DatabaseMigrations)
+    .AddProject<DatabaseMigrations>(Resources.DatabaseMigrations)
     .WithReference(appDb)
     .WaitFor(appDb);
 
@@ -21,7 +22,7 @@ var databaseMigrations = builder
 #region Backend
 
 var backend = builder
-    .AddProject<Projects.Web>(Resources.Backend)
+    .AddProject<Web>(Resources.Backend)
     .WithReference(appDb)
     .WaitForCompletion(databaseMigrations)
     .WithHttpHealthCheck("/health/live")
