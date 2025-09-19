@@ -8,7 +8,7 @@ using OpenIddict.Client.WebIntegration;
 namespace Partify.Web.Controllers;
 
 [Route("[controller]")]
-internal sealed class AuthController : Controller
+public sealed class AuthController : Controller
 {
     private readonly ILogger<AuthController> _logger;
 
@@ -78,9 +78,7 @@ internal sealed class AuthController : Controller
 
             if (string.IsNullOrEmpty(name))
             {
-                _logger.LogWarning(
-                    "Spotify authentication failed: Missing required Name claim"
-                );
+                _logger.LogWarning("Spotify authentication failed: Missing required Name claim");
                 return Redirect("/auth/error?type=missing_claims");
             }
 

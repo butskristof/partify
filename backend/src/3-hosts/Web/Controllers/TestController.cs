@@ -4,7 +4,7 @@ namespace Partify.Web.Controllers;
 
 [Controller]
 [Route("[controller]")]
-internal sealed class TestController : Controller
+public sealed class TestController : Controller
 {
     [HttpGet]
     public IActionResult Get()
