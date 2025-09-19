@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -7,13 +6,11 @@
         <AssemblyName>Partify.Application</AssemblyName>
         <RootNamespace>Partify.Application</RootNamespace>
     </PropertyGroup>
-
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" />
     </ItemGroup>
-
     <ItemGroup>
-      <ProjectReference Include="..\Domain\Domain.csproj" />
+        <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
-
 </Project>
