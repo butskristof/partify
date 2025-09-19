@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -7,15 +6,13 @@
         <AssemblyName>Partify.Persistence</AssemblyName>
         <RootNamespace>Partify.Persistence</RootNamespace>
     </PropertyGroup>
-
     <ItemGroup>
-      <ProjectReference Include="..\..\1-core\Application\Application.csproj" />
+        <ProjectReference Include="..\..\1-core\Application\Application.csproj" />
     </ItemGroup>
-
     <ItemGroup>
-      <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
-      <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+        <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+        <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+        <PackageReference Include="OpenIddict.EntityFrameworkCore" />
     </ItemGroup>
-
 </Project>

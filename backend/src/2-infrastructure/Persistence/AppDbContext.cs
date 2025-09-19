@@ -8,7 +8,7 @@ using Partify.Persistence.ValueConverters;
 
 namespace Partify.Persistence;
 
-internal sealed class AppDbContext : DbContext, IAppDbContext
+public sealed class AppDbContext : DbContext, IAppDbContext
 {
     #region construction
 

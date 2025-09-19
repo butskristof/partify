@@ -13,4 +13,8 @@
         <ProjectReference Include="..\..\2-infrastructure\Infrastructure\Infrastructure.csproj" />
         <ProjectReference Include="..\..\2-infrastructure\Persistence\Persistence.csproj" />
     </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="OpenIddict.AspNetCore" />
+        <PackageReference Include="OpenIddict.Client.WebIntegration" />
+    </ItemGroup>
 </Project>

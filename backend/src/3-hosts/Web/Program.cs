@@ -31,5 +31,6 @@ app
     .UseStatusCodePages();
 
 app.MapDefaultEndpoints();
+app.MapControllers();
 
 app.Run();

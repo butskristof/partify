@@ -5,7 +5,7 @@ namespace Partify.Application.Common.Configuration;
 
 public sealed class SpotifySettings : ISettings
 {
-    public static string SectionName => "Authentication";
+    public static string SectionName => "Spotify";
 
     public required string ClientId { get; init; }
     public required string ClientSecret { get; init; }

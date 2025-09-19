@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
 using Partify.Application.Common.Authentication;
 using Partify.Application.Common.Configuration;
 using Partify.Application.Common.Validation;
+using Partify.Persistence;
 using Partify.Web.Common;
 
 namespace Partify.Web;
@@ -53,27 +55,72 @@ internal static class DependencyInjection
 
         services.AddHealthChecks();
 
-        services.AddAuthentication();
-        services.AddAuthorization();
+        services.AddAuth();
         services.AddHttpContextAccessor().AddSingleton<IAuthenticationInfo, AuthenticationInfo>();
 
         services.AddCors(options =>
         {
             using var serviceProvider = services.BuildServiceProvider();
-            var settings = serviceProvider.GetRequiredService<IOptions<CorsSettings>>().Value;
-            if (!settings.AllowCors)
+            var corsSettings = serviceProvider.GetRequiredService<IOptions<CorsSettings>>().Value;
+            if (!corsSettings.AllowCors)
                 return;
 
             options.AddDefaultPolicy(policy =>
-                policy.WithOrigins(settings.AllowedOrigins).AllowAnyHeader().AllowAnyMethod()
+                policy.WithOrigins(corsSettings.AllowedOrigins).AllowAnyHeader().AllowAnyMethod()
             );
         });
+
+        services.AddControllers();
 
         return services;
     }
 
-    private static IServiceCollection AddSpotifyAuthentication(this IServiceCollection services)
+    private static IServiceCollection AddAuth(this IServiceCollection services)
     {
+        services
+            .AddOpenIddict()
+            .AddCore(options =>
+            {
+                options.UseEntityFrameworkCore().UseDbContext<AppDbContext>();
+            })
+            .AddClient(builder =>
+            {
+                builder.AllowAuthorizationCodeFlow();
+
+                builder.AddDevelopmentEncryptionCertificate().AddDevelopmentSigningCertificate();
+
+                builder.UseAspNetCore().EnableRedirectionEndpointPassthrough();
+
+                builder.UseSystemNetHttp();
+
+                using var serviceProvider = services.BuildServiceProvider();
+                var spotifySettings = serviceProvider
+                    .GetRequiredService<IOptions<SpotifySettings>>()
+                    .Value;
+                builder
+                    .UseWebProviders()
+                    .AddSpotify(spotifyOptions =>
+                        spotifyOptions
+                            .SetClientId(spotifySettings.ClientId)
+                            .SetClientSecret(spotifySettings.ClientSecret)
+                            .SetRedirectUri("auth/callback/spotify")
+                    );
+            });
+
+        services
+            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.Cookie.Name = "__Host_app";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.Lax;
+                options.SlidingExpiration = true;
+                options.ExpireTimeSpan = TimeSpan.FromDays(14);
+                options.LoginPath = "/auth/login";
+            });
+        services.AddAuthorization();
+
         return services;
     }
 

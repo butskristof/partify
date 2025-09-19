@@ -48,6 +48,11 @@ public static class DependencyInjection
             {
                 // registered manually below to add the ready tag
                 settings.DisableHealthChecks = true;
+            },
+            options =>
+            {
+                // Register the entity sets needed by OpenIddict.
+                options.UseOpenIddict();
             }
         );
         builder.Services.AddPersistenceServices(healthCheckTags);
