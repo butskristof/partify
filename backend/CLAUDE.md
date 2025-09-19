@@ -30,6 +30,7 @@
 - Write integration tests first to define behavior
 - Write unit tests for business logic
 - Implement code to make tests pass
+- Use the dotnet CLI to manage NuGet dependencies, do **not** update csproj files or Directory.Pacakges.props directly
 
 ## Architecture Guidelines (Planned)
 
