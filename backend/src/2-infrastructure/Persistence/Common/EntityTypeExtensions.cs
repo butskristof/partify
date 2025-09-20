@@ -13,7 +13,7 @@ internal static class EntityTypeExtensions
     /// Determines if the entity type belongs to the OpenIddict namespace.
     /// Used to exclude third-party entities from custom conventions.
     /// </summary>
-    public static bool IsOpenIddictEntity(this IConventionEntityType entityType)
+    internal static bool IsOpenIddictEntity(this IConventionEntityType entityType)
     {
         return entityType.ClrType.Namespace?.StartsWith(
                 OpenIddictNamespace,
