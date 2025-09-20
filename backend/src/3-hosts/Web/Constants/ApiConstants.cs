@@ -1,4 +1,4 @@
-namespace SplitTheBill.Api.Constants;
+namespace Partify.Web.Constants;
 
 public static class ApiConstants
 {

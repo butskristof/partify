@@ -9,7 +9,4 @@
     <ItemGroup>
         <ProjectReference Include="..\..\1-core\Application\Application.csproj" />
     </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="SpotifyAPI.Web" />
-    </ItemGroup>
 </Project>

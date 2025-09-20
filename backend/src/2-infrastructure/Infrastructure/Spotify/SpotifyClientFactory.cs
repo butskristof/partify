@@ -1,7 +1,5 @@
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Partify.Application.Common.Authentication;
-using Partify.Application.Common.Configuration;
 using Partify.Application.Common.Services;
 using SpotifyAPI.Web;
 
@@ -24,7 +22,7 @@ internal sealed class SpotifyClientFactory : ISpotifyClientFactory
         _spotifyTokensService = spotifyTokensService;
     }
 
-    public async Task BuildClient(CancellationToken cancellationToken = default)
+    public async Task<SpotifyClient> BuildClient(CancellationToken cancellationToken = default)
     {
         _logger.LogInformation(
             "Building Spotify client for user {UserId}",
@@ -35,7 +33,7 @@ internal sealed class SpotifyClientFactory : ISpotifyClientFactory
             _authenticationInfo.UserId,
             cancellationToken
         );
-        // TODO handle null
+
         return new SpotifyClient(accessToken);
     }
 }
