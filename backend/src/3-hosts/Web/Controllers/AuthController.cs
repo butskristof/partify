@@ -3,7 +3,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Abstractions;
+using OpenIddict.Client.AspNetCore;
 using OpenIddict.Client.WebIntegration;
+using Partify.Domain.ValueTypes;
+using Partify.Infrastructure.Spotify;
 
 namespace Partify.Web.Controllers;
 
@@ -41,7 +44,10 @@ public sealed class AuthController : Controller
     }
 
     [HttpGet("callback/spotify")]
-    public async Task<IActionResult> SpotifyCallback()
+    public async Task<IActionResult> SpotifyCallback(
+        [FromServices] ISpotifyTokensService spotifyTokensService,
+        [FromServices] TimeProvider timeProvider
+    )
     {
         _logger.LogInformation("Callback for Spotify authentication received");
         try
@@ -87,6 +93,67 @@ public sealed class AuthController : Controller
                 nameIdentifier
             );
 
+            try
+            {
+                var accessToken = await HttpContext.GetTokenAsync(
+                    OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken
+                );
+
+                if (string.IsNullOrEmpty(accessToken))
+                {
+                    _logger.LogError(
+                        "Failed to retrieve access token from Spotify for user {UserId}",
+                        nameIdentifier
+                    );
+                    return Redirect("/auth/error?type=token_retrieval_failed");
+                }
+
+                var accessTokenExpirationDate = await HttpContext.GetTokenAsync(
+                    OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessTokenExpirationDate
+                );
+
+                if (
+                    !DateTimeOffset.TryParse(
+                        accessTokenExpirationDate,
+                        out var accessTokenExpiresOn
+                    )
+                )
+                {
+                    _logger.LogWarning(
+                        "Failed to parse access token expiration date for user {UserId}, using default",
+                        nameIdentifier
+                    );
+                    // we expect the token to be valid for an hour, let's subtract 1 minute to account for network
+                    // latency between issuing the token and receiving it
+                    accessTokenExpiresOn = timeProvider.GetUtcNow().AddMinutes(59);
+                }
+
+                var refreshToken = await HttpContext.GetTokenAsync(
+                    OpenIddictClientAspNetCoreConstants.Tokens.RefreshToken
+                );
+
+                await spotifyTokensService.UpdateSpotifyTokens(
+                    new SpotifyId(nameIdentifier),
+                    accessToken,
+                    accessTokenExpiresOn,
+                    refreshToken
+                );
+
+                _logger.LogInformation(
+                    "Successfully persisted Spotify tokens for user {UserId}",
+                    nameIdentifier
+                );
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex,
+                    "Failed to handle Spotify tokens for user {UserId}",
+                    nameIdentifier
+                );
+                return Redirect("/auth/error?type=token_persistence_failed");
+            }
+
             var identity = new ClaimsIdentity(
                 authenticationType: CookieAuthenticationDefaults.AuthenticationScheme
             );
@@ -125,6 +192,8 @@ public sealed class AuthController : Controller
         {
             "authentication_failed" => "Authentication with Spotify failed. Please try again.",
             "missing_claims" => "Unable to retrieve required user information from Spotify.",
+            "token_retrieval_failed" => "Failed to retrieve access tokens from Spotify.",
+            "token_persistence_failed" => "Failed to save authentication tokens.",
             "unexpected_error" => "An unexpected error occurred during authentication.",
             _ => "An authentication error occurred.",
         };
