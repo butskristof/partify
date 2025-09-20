@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Partify.Application.Common.Services;
 using Partify.Infrastructure.Spotify;
 
 namespace Partify.Infrastructure;
@@ -11,6 +12,7 @@ public static class DependencyInjection
         services.AddSingleton(TimeProvider.System);
 
         services.AddScoped<ISpotifyTokensService, SpotifyTokensService>();
+        services.AddScoped<ISpotifyClientFactory, SpotifyClientFactory>();
 
         return services;
     }

@@ -95,7 +95,7 @@ public sealed class AuthController : Controller
 
             try
             {
-                var accessToken = await HttpContext.GetTokenAsync(
+                var accessToken = result.Properties.GetTokenValue(
                     OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken
                 );
 
@@ -108,7 +108,7 @@ public sealed class AuthController : Controller
                     return Redirect("/auth/error?type=token_retrieval_failed");
                 }
 
-                var accessTokenExpirationDate = await HttpContext.GetTokenAsync(
+                var accessTokenExpirationDate = result.Properties.GetTokenValue(
                     OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessTokenExpirationDate
                 );
 
@@ -128,7 +128,7 @@ public sealed class AuthController : Controller
                     accessTokenExpiresOn = timeProvider.GetUtcNow().AddMinutes(59);
                 }
 
-                var refreshToken = await HttpContext.GetTokenAsync(
+                var refreshToken = result.Properties.GetTokenValue(
                     OpenIddictClientAspNetCoreConstants.Tokens.RefreshToken
                 );
 

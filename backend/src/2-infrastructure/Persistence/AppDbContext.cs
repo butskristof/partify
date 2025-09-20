@@ -34,9 +34,8 @@ public sealed class AppDbContext : DbContext, IAppDbContext
         // set text fields to have a reduced maximum length by default
         // this cuts down on a lot of varchar(max) columns, and can still be set to a higher
         // maximum length on a per-column basis
-        configurationBuilder
-            .Properties<string>()
-            .HaveMaxLength(ApplicationConstants.DefaultMaxStringLength);
+        // note: string length convention is handled by MaxStringLengthConvention to exclude OpenIddict entities
+        configurationBuilder.Conventions.Add(_ => new MaxStringLengthConvention());
 
         configurationBuilder.Properties<decimal>().HavePrecision(18, 6);
 
@@ -47,8 +46,7 @@ public sealed class AppDbContext : DbContext, IAppDbContext
         configurationBuilder.Properties<SpotifyId>().HaveConversion<SpotifyIdValueConverter>();
         configurationBuilder
             .Properties<SpotifyId>()
-            .HaveMaxLength(ApplicationConstants.SpotifyIdLength)
-            .AreFixedLength();
+            .HaveMaxLength(ApplicationConstants.SpotifyIdMaxLength);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

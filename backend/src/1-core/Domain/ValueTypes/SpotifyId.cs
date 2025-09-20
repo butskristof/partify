@@ -7,7 +7,7 @@ namespace Partify.Domain.ValueTypes;
 
 /// <summary>
 /// Represents a Spotify ID - a base-62 encoded identifier used throughout the Spotify Web API.
-/// Spotify IDs are generated as UUID4s converted to a fixed 22-character base-62 representation.
+/// Spotify IDs are generated as UUID4s converted to a base-62 representation.
 /// </summary>
 /// <remarks>
 /// Base-62 uses characters [0-9a-zA-Z] to create shorter, URL-safe identifiers.
@@ -28,7 +28,7 @@ public readonly record struct SpotifyId
         if (string.IsNullOrWhiteSpace(value))
             throw new ArgumentException("Spotify ID cannot be null or empty", nameof(value));
 
-        if (!IsValidBase62(value))
+        if (!IsValidSpotifyId(value))
             throw new ArgumentException("Invalid Spotify ID format", nameof(value));
 
         Value = value;
@@ -38,9 +38,10 @@ public readonly record struct SpotifyId
     /// Validates that a string conforms to Spotify's base-62 ID format.
     /// </summary>
     /// <param name="value">The string to validate.</param>
-    /// <returns>True if the string is exactly 22 characters and contains only base-62 characters [0-9a-zA-Z].</returns>
-    private static bool IsValidBase62(string value) =>
-        value.Length == ApplicationConstants.SpotifyIdLength
+    /// <returns>True if the string is at most 50 characters and contains only base-62 characters [0-9a-zA-Z].</returns>
+    private static bool IsValidSpotifyId(string value) =>
+        value.Length <= ApplicationConstants.SpotifyIdMaxLength
+        // check base 62: only alphanumeric characters
         && value.All(c =>
             c is >= '0' and <= '9'
             || // Digits 0-9
