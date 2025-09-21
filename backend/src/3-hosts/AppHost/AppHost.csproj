@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Sdk Name="Aspire.AppHost.Sdk" Version="9.4.2" />
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <UserSecretsId>fe40f8cb-f75b-4874-bda9-f91e687e9a46</UserSecretsId>
+        <AssemblyName>Partify.AppHost</AssemblyName>
+        <RootNamespace>Partify.AppHost</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Aspire.Hosting.AppHost" />
+        <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference
+            Include="..\..\1-core\ServiceDefaults\ServiceDefaults.csproj"
+            IsAspireProjectResource="false"
+        />
+        <ProjectReference Include="..\DatabaseMigrations\DatabaseMigrations.csproj" />
+        <ProjectReference Include="..\Web\Web.csproj" />
+    </ItemGroup>
+</Project>
