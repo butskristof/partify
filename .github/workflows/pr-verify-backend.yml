@@ -1,4 +1,4 @@
-name: "Build and test API"
+name: "Build and test backend"
 
 on:
   pull_request:
@@ -15,12 +15,12 @@ permissions:
 
 jobs:
   build-and-test:
-    name: Build and test API
+    name: Build and test backend
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     defaults:
       run:
-        working-directory: "./api"
+        working-directory: "./backend"
 
     steps:
       - uses: actions/checkout@v4

@@ -1,26 +1,32 @@
 <Solution>
-  <Folder Name="/Solution Items/">
-    <File Path="global.json" />
-    <File Path=".config/dotnet-tools.json" />
-    <File Path="Directory.Build.props" />
-    <File Path=".csharpierignore" />
-    <File Path=".csharpierrc.json" />
-    <File Path="Directory.Packages.props" />
-  </Folder>
-  <Folder Name="/src/" />
-  <Folder Name="/src/1. Core/">
-    <Project Path="src/1-core/ServiceDefaults/ServiceDefaults.csproj" Type="Classic C#" />
-    <Project Path="src/1-core/Application/Application.csproj" Type="Classic C#" />
-    <Project Path="src/1-core/Domain/Domain.csproj" Type="Classic C#" />
-  </Folder>
-  <Folder Name="/src/2. Infrastructure/">
-    <Project Path="src/2-infrastructure/Persistence/Persistence.csproj" Type="Classic C#" />
-    <Project Path="src/2-infrastructure/Infrastructure/Infrastructure.csproj" Type="Classic C#" />
-  </Folder>
-  <Folder Name="/src/3. Hosts/">
-    <Project Path="src/3-hosts/AppHost/AppHost.csproj" Type="Classic C#" />
-    <Project Path="src/3-hosts/DatabaseMigrations/DatabaseMigrations.csproj" Type="Classic C#" />
-    <Project Path="src/3-hosts/Web/Web.csproj" Type="Classic C#" />
-  </Folder>
-  <Folder Name="/tests/" />
+    <Folder Name="/Solution Items/">
+        <File Path="global.json" />
+        <File Path=".config/dotnet-tools.json" />
+        <File Path="Directory.Build.props" />
+        <File Path=".csharpierignore" />
+        <File Path=".csharpierrc.json" />
+        <File Path="Directory.Packages.props" />
+    </Folder>
+    <Folder Name="/src/" />
+    <Folder Name="/src/1. Core/">
+        <Project Path="src/1-core/ServiceDefaults/ServiceDefaults.csproj" Type="Classic C#" />
+        <Project Path="src/1-core/Application/Application.csproj" Type="Classic C#" />
+        <Project Path="src/1-core/Domain/Domain.csproj" Type="Classic C#" />
+    </Folder>
+    <Folder Name="/src/2. Infrastructure/">
+        <Project Path="src/2-infrastructure/Persistence/Persistence.csproj" Type="Classic C#" />
+        <Project
+            Path="src/2-infrastructure/Infrastructure/Infrastructure.csproj"
+            Type="Classic C#"
+        />
+    </Folder>
+    <Folder Name="/src/3. Hosts/">
+        <Project Path="src/3-hosts/AppHost/AppHost.csproj" Type="Classic C#" />
+        <Project
+            Path="src/3-hosts/DatabaseMigrations/DatabaseMigrations.csproj"
+            Type="Classic C#"
+        />
+        <Project Path="src/3-hosts/Web/Web.csproj" Type="Classic C#" />
+    </Folder>
+    <Folder Name="/tests/" />
 </Solution>

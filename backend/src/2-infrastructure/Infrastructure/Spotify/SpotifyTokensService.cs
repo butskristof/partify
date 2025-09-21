@@ -30,7 +30,6 @@ internal sealed class SpotifyTokensService : ISpotifyTokensService
     private readonly SpotifySettings _spotifySettings;
     private readonly TimeProvider _timeProvider;
 
-
     public SpotifyTokensService(
         ILogger<SpotifyTokensService> logger,
         IAppDbContext dbContext,
