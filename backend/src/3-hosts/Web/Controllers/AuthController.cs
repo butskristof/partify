@@ -11,7 +11,7 @@ using Partify.Infrastructure.Spotify;
 namespace Partify.Web.Controllers;
 
 [Route("[controller]")]
-public sealed class AuthController : Controller
+public sealed class AuthController : ControllerBase
 {
     private readonly ILogger<AuthController> _logger;
 

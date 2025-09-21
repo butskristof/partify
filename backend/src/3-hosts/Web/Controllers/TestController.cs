@@ -4,9 +4,8 @@ using Partify.Application.Common.Services;
 
 namespace Partify.Web.Controllers;
 
-[Controller]
 [Route("[controller]")]
-public sealed class TestController : Controller
+public sealed class TestController : ControllerBase
 {
     [HttpGet]
     public IActionResult Get()

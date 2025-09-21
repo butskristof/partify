@@ -4,10 +4,9 @@ using Partify.Application.Common.Services;
 
 namespace Partify.Web.Controllers;
 
-[Controller]
 [Route("[controller]")]
 [Authorize]
-public sealed class SpotifyController : Controller
+public sealed class SpotifyController : ControllerBase
 {
     private readonly ISpotifyClientFactory _spotifyClientFactory;
 
