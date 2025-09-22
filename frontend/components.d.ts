@@ -10,12 +10,15 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./src/components/app/AppFooter.vue')['default']
     AppHeader: typeof import('./src/components/app/AppHeader.vue')['default']
+    AuthenticatedView: typeof import('./src/components/app/AuthenticatedView.vue')['default']
     Button: typeof import('primevue/button')['default']
     InputText: typeof import('primevue/inputtext')['default']
+    PreformattedText: typeof import('./src/components/common/PreformattedText.vue')['default']
     PrimeTest: typeof import('./src/components/app/PrimeTest.vue')['default']
     ProgressBar: typeof import('primevue/progressbar')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ToggleSwitch: typeof import('primevue/toggleswitch')['default']
+    UnauthenticatedView: typeof import('./src/components/app/UnauthenticatedView.vue')['default']
   }
 }

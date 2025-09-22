@@ -3,7 +3,10 @@
     <AppHeader />
     <div class="content">
       <div class="page">
-        <RouterView />
+        <main>
+          <AuthenticatedView v-if="isAuthenticated" />
+          <UnauthenticatedView v-else />
+        </main>
       </div>
 
       <AppFooter />
@@ -14,6 +17,11 @@
 <script setup lang="ts">
 import AppHeader from '@/components/app/AppHeader.vue';
 import AppFooter from '@/components/app/AppFooter.vue';
+import { ref } from 'vue';
+import AuthenticatedView from '@/components/app/AuthenticatedView.vue';
+import UnauthenticatedView from '@/components/app/UnauthenticatedView.vue';
+
+const isAuthenticated = ref(false);
 </script>
 
 <style scoped lang="scss">
