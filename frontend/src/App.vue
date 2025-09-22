@@ -4,6 +4,7 @@
     <div class="content">
       <div class="page">
         <RouterView />
+        <PrimeTest />
       </div>
 
       <AppFooter />
@@ -14,6 +15,7 @@
 <script setup lang="ts">
 import AppHeader from '@/components/app/AppHeader.vue';
 import AppFooter from '@/components/app/AppFooter.vue';
+import PrimeTest from '@/components/app/PrimeTest.vue';
 </script>
 
 <style scoped lang="scss">
