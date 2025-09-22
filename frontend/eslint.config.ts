@@ -11,12 +11,35 @@ import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
 export default defineConfigWithVueTs(
   {
     name: 'app/files-to-lint',
-    files: ['**/*.{ts,mts,tsx,vue}'],
+    files: ['**/*.{js,jsx,ts,mts,tsx,vue}'],
   },
 
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+  globalIgnores([
+    '**/node_modules/**',
+    '**/dist/**',
+    '**/dist-ssr/**',
+    '**/coverage/**',
+    '**/.vscode/**',
+    '**/.idea/**',
+    '**/*.min.js',
+    '**/public/**',
+    '**/build/**',
+  ]),
 
-  pluginVue.configs['flat/essential'],
+  pluginVue.configs['flat/recommended'],
   vueTsConfigs.recommended,
   skipFormatting,
+  {
+    name: 'app/custom-rules',
+    rules: {
+      'no-console': 'warn',
+      'no-debugger': 'warn',
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: ['../*'],
+        },
+      ],
+    },
+  },
 );
