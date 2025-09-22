@@ -1,0 +1,61 @@
+@use 'utilities';
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/InterVariable-Italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --app-header-height: calc(var(--default-spacing) * 4);
+  --app-container: 80rem; // 1280px
+
+  --default-radius: 0.25rem;
+  --default-spacing: 1rem;
+
+  --text-base: 1rem;
+  --text-sm: 0.875rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --color-text: var(--p-primary-contrast-color);
+  --color-text-muted: #9CA3AF;
+
+  --color-primary: var(--p-primary-500);
+  --color-secondary: var(--p-pink-500);
+  --color-surface-raised: #1F2937;
+
+  --font-weight-default: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+}
+
+html, body {
+  background-color: var(--p-surface-500);
+  color: var(--color-text);
+  font-family: Inter, sans-serif;
+  font-optical-sizing: auto;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+
+h1 {
+  @include utilities.bold;
+  @include utilities.font-size(2xl);
+}
+
+h2 {
+  @include utilities.semibold;
+  @include utilities.font-size(xl);
+}
