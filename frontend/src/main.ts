@@ -1,6 +1,7 @@
 //#region styling
 
 import './styles/reset.css';
+import 'primeicons/primeicons.css';
 import './styles/main.scss';
 
 //#endregion
