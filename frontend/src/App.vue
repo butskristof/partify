@@ -4,7 +4,13 @@
     <div class="content">
       <div class="page">
         <main>
-          <AuthenticatedView v-if="isAuthenticated" />
+          <div
+            v-if="isAuthLoading"
+            class="auth-loading"
+          >
+            <ProgressSpinner />
+          </div>
+          <AuthenticatedView v-else-if="isAuthenticated" />
           <UnauthenticatedView v-else />
         </main>
       </div>
@@ -17,11 +23,11 @@
 <script setup lang="ts">
 import AppHeader from '@/components/app/AppHeader.vue';
 import AppFooter from '@/components/app/AppFooter.vue';
-import { ref } from 'vue';
 import AuthenticatedView from '@/components/app/AuthenticatedView.vue';
 import UnauthenticatedView from '@/components/app/UnauthenticatedView.vue';
+import { useAuth } from '@/components/composables/queries/auth.ts';
 
-const isAuthenticated = ref(false);
+const { isLoading: isAuthLoading, isAuthenticated } = useAuth();
 </script>
 
 <style scoped lang="scss">
@@ -50,5 +56,9 @@ const isAuthenticated = ref(false);
       }
     }
   }
+}
+
+.auth-loading {
+  @include utilities.full-page-info;
 }
 </style>

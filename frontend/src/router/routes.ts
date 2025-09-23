@@ -11,6 +11,10 @@ export const routes = {
         name: 'sessions.overview',
         path: '',
       },
+      detail: {
+        name: 'sessions.detail',
+        path: ':id',
+      },
     },
   },
   notFound: {

@@ -4,9 +4,9 @@
     <p>Please log in to access the application</p>
 
     <div class="actions">
-      <a :href="`/auth/login?returnUrl=${returnUrl}`">
+      <a :href="`/auth/login/spotify?returnUrl=${returnUrl}`">
         <Button
-          label="Log in"
+          label="Log in with Spotify"
           icon="pi pi-sign-in"
         />
       </a>
@@ -19,21 +19,13 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const returnUrl = computed(() => route.fullPath);
+const returnUrl = computed(() => window.location.origin + route.fullPath);
 </script>
 
 <style scoped lang="scss">
 @use '@/styles/utilities.scss';
 
 .unauthenticated-view {
-  padding-block: calc(var(--default-spacing) * 4);
-  height: 100%;
-  text-align: center;
-
-  @include utilities.flex-column;
-
-  .actions {
-    margin-top: calc(var(--default-spacing) * 2);
-  }
+  @include utilities.full-page-info;
 }
 </style>

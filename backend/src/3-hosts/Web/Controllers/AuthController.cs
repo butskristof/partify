@@ -2,9 +2,11 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using OpenIddict.Abstractions;
 using OpenIddict.Client.AspNetCore;
 using OpenIddict.Client.WebIntegration;
+using Partify.Application.Common.Configuration;
 using Partify.Domain.ValueTypes;
 using Partify.Infrastructure.Spotify;
 
@@ -14,17 +16,20 @@ namespace Partify.Web.Controllers;
 public sealed class AuthController : ControllerBase
 {
     private readonly ILogger<AuthController> _logger;
+    private readonly CorsSettings _corsSettings;
 
-    public AuthController(ILogger<AuthController> logger)
+    public AuthController(ILogger<AuthController> logger, IOptions<CorsSettings> corsSettings)
     {
         _logger = logger;
+        _corsSettings = corsSettings.Value;
     }
 
     [HttpGet("login")]
     public IActionResult Login([FromQuery] string? returnUrl)
     {
         _logger.LogInformation("User started login");
-        return RedirectToAction(nameof(SpotifyLogin), new { returnUrl });
+        var redirectReturnUrl = IsValidReturnUrl(returnUrl) ? returnUrl : null;
+        return RedirectToAction(nameof(SpotifyLogin), new { returnUrl = redirectReturnUrl });
     }
 
     [HttpGet("login/spotify")]
@@ -34,13 +39,42 @@ public sealed class AuthController : ControllerBase
 
         var properties = new AuthenticationProperties
         {
-            RedirectUri =
-                !string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl)
-                    ? returnUrl
-                    : "/",
+            RedirectUri = IsValidReturnUrl(returnUrl) ? returnUrl : "/",
         };
 
         return Challenge(properties, OpenIddictClientWebIntegrationConstants.Providers.Spotify);
+    }
+
+    private bool IsValidReturnUrl(string? returnUrl)
+    {
+        if (string.IsNullOrWhiteSpace(returnUrl))
+            return false;
+
+        // Check if it's a local URL first (relative paths like "/dashboard")
+        if (Url.IsLocalUrl(returnUrl))
+            return true;
+
+        // For absolute URLs, validate the origin properly
+        if (Uri.TryCreate(returnUrl, UriKind.Absolute, out var uri))
+        {
+            var origin = $"{uri.Scheme}://{uri.Host}";
+            if (
+                uri.Port
+                != uri.Scheme switch
+                {
+                    "https" => 443,
+                    "http" => 80,
+                    _ => -1,
+                }
+            )
+            {
+                origin += $":{uri.Port}";
+            }
+
+            return _corsSettings.AllowedOrigins.Contains(origin);
+        }
+
+        return false;
     }
 
     [HttpGet("callback/spotify")]
@@ -213,11 +247,6 @@ public sealed class AuthController : ControllerBase
         // Sign out from both the local cookie and the external provider (Spotify)
         var authProperties = new AuthenticationProperties { RedirectUri = "/" };
 
-        // Sign out from both the local cookie and the external provider (Spotify)
-        return SignOut(
-            authProperties,
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            OpenIddictClientWebIntegrationConstants.Providers.Spotify
-        );
+        return SignOut(authProperties, CookieAuthenticationDefaults.AuthenticationScheme);
     }
 }

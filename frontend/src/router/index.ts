@@ -26,6 +26,11 @@ const router = createRouter({
               path: routes.sessions.children.overview.path,
               component: () => import('@/pages/sessions/SessionsOverview.vue'),
             },
+            {
+              name: routes.sessions.children.detail.name,
+              path: routes.sessions.children.detail.path,
+              component: () => import('@/pages/sessions/SessionDetail.vue'),
+            },
           ],
         },
       ],

@@ -43,6 +43,18 @@
   align-items: center;
 }
 
+@mixin full-page-info {
+  padding-block: calc(var(--default-spacing) * 4);
+  height: 100%;
+  text-align: center;
+
+  @include flex-column;
+
+  .actions {
+    margin-top: calc(var(--default-spacing) * 2);
+  }
+}
+
 // FONTS
 @mixin font-size($size) {
   font-size: var(--text-#{$size});

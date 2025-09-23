@@ -10,8 +10,14 @@ import { createApp } from 'vue';
 import App from './App.vue';
 const app = createApp(App);
 
+//#region router
+
 import router from './router';
 app.use(router);
+
+//#endregion
+
+//#region PrimeVue
 
 import PrimeVue from 'primevue/config';
 import { definePreset } from '@primeuix/themes';
@@ -75,5 +81,14 @@ app.use(PrimeVue, {
     },
   },
 });
+
+//#endregion
+
+//#region Tanstack Query
+
+import { VueQueryPlugin } from '@tanstack/vue-query';
+app.use(VueQueryPlugin);
+
+//#endregion
 
 app.mount('#app');

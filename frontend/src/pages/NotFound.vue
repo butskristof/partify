@@ -15,21 +15,13 @@
 </template>
 
 <script setup lang="ts">
-import { routes } from '@/router/routes.js';
+import { routes } from '@/router/routes.ts';
 </script>
 
 <style scoped lang="scss">
 @use '@/styles/utilities.scss';
 
 .page-not-found {
-  padding-block: calc(var(--default-spacing) * 4);
-  height: 100%;
-  text-align: center;
-
-  @include utilities.flex-column;
-
-  .actions {
-    margin-top: calc(var(--default-spacing) * 2);
-  }
+  @include utilities.full-page-info;
 }
 </style>
